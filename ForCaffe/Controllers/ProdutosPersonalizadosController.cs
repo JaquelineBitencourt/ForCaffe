@@ -14,7 +14,8 @@ namespace ForCaffe.Controllers
         // GET: ProdutosPersonalizados
         public ActionResult Index()
         {
-            string strcon = "Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=C:\\Users\\Ssd\\source\\repos\\ForCaffe\\ForCaffe\\App_Data\\BancoForCaffe.mdf;Integrated Security=True";
+            //string strcon = "Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=C:\\Users\\Ssd\\source\\repos\\ForCaffe\\ForCaffe\\App_Data\\BancoForCaffe.mdf;Integrated Security=True";
+            string strcon = "Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=C:\\Users\\jaqueline.correia\\Downloads\\ForCaffe\\ForCaffe\\App_Data\\BancoForCaffe.mdf";
             SqlConnection conexao = new SqlConnection(strcon);
             SqlCommand cmd = new SqlCommand("SELECT * FROM ProdutosPersonalizados", conexao);
             SqlDataAdapter da = new SqlDataAdapter();
@@ -69,7 +70,8 @@ namespace ForCaffe.Controllers
                 // TODO: Add insert logic here
                 string tmpTipo = collection.GetValues("Tipo")[0];
                 string tmpPreco = collection.GetValues("Preco")[0];
-                string strcon = "Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=C:\\Users\\Ssd\\source\\repos\\ForCaffe\\ForCaffe\\App_Data\\BancoForCaffe.mdf;Integrated Security=True";
+                //string strcon = "Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=C:\\Users\\Ssd\\source\\repos\\ForCaffe\\ForCaffe\\App_Data\\BancoForCaffe.mdf;Integrated Security=True";
+                string strcon = "Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=C:\\Users\\jaqueline.correia\\Downloads\\ForCaffe\\ForCaffe\\App_Data\\BancoForCaffe.mdf";
                 SqlConnection conexao = new SqlConnection(strcon);
                 string commandText = "Insert into [ProdutosPersonalizados] (Tipo, Preco) VALUES " +
                     "('" + tmpTipo + "','" + tmpPreco + ")";
@@ -120,7 +122,8 @@ namespace ForCaffe.Controllers
             try
             {
                 // TODO: Add delete logic here
-                string strcon = "Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=C:\\Users\\Ssd\\source\\repos\\ForCaffe\\ForCaffe\\App_Data\\BancoForCaffe.mdf;Integrated Security=True";
+                //string strcon = "Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=C:\\Users\\Ssd\\source\\repos\\ForCaffe\\ForCaffe\\App_Data\\BancoForCaffe.mdf;Integrated Security=True";
+                string strcon = "Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=C:\\Users\\jaqueline.correia\\Downloads\\ForCaffe\\ForCaffe\\App_Data\\BancoForCaffe.mdf";
                 SqlConnection conexao = new SqlConnection(strcon);
                 string commandText = "Delete from [ProdutosPersonalizados] WHERE Id=" + id + ";";
                 SqlCommand cmd = new SqlCommand(commandText, conexao);

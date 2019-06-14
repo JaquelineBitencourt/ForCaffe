@@ -1,4 +1,5 @@
 ﻿using ForCaffe.Models;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -14,7 +15,8 @@ namespace ForCaffe.Controllers
         // GET: Cafe
         public ActionResult Index()
         {
-            string strcon = "Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=C:\\Users\\Ssd\\source\\repos\\ForCaffe\\ForCaffe\\App_Data\\BancoForCaffe.mdf;Integrated Security=True";
+            //string strcon = "Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=C:\\Users\\Ssd\\source\\repos\\ForCaffe\\ForCaffe\\App_Data\\BancoForCaffe.mdf;Integrated Security=True";
+            string strcon = "Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=C:\\Users\\jaqueline.correia\\Downloads\\ForCaffe\\ForCaffe\\App_Data\\BancoForCaffe.mdf";
             SqlConnection conexao = new SqlConnection(strcon);
             SqlCommand cmd = new SqlCommand("SELECT * FROM Cafe", conexao);
             SqlDataAdapter da = new SqlDataAdapter();
@@ -45,6 +47,35 @@ namespace ForCaffe.Controllers
                 });
             }
 
+            String URL2 = "http://10.200.118.60:8081/cafes";
+            using (var webClient = new System.Net.WebClient())
+            {
+                var json2 = webClient.DownloadString(URL2);
+                var itens = new List<Cafe>();
+                JsonConvert.PopulateObject(json2, itens);
+                for (int i = 0; i < tableList.Count(); i++)
+                {
+                    for (int j = 0; j < itens.Count(); j++)
+                    {
+
+                        if (itens[j].Tipo == tableList[i].Tipo)
+                        {
+                            if (itens[j].Preco >= tableList[i].Preco)
+                            {
+                                tableList[i].Preco = itens[j].Preco;
+                            }
+                            else
+                            {
+                                tableList[i].Preco = itens[j].Preco * Convert.ToSingle(0.9);
+                            }
+  
+                        }
+                       
+                    }
+                   
+                }
+            }
+
             return View(tableList);
         }
 
@@ -70,7 +101,8 @@ namespace ForCaffe.Controllers
             string tmpTipo = collection.GetValues("Tipo")[0];
             string tmpTamanho = collection.GetValues("Tamanho")[0];
             string tmpPreco = collection.GetValues("Preco")[0];
-            string strcon = "Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=C:\\Users\\Ssd\\source\\repos\\ForCaffe\\ForCaffe\\App_Data\\BancoForCaffe.mdf;Integrated Security=True";
+            // string strcon = "Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=C:\\Users\\Ssd\\source\\repos\\ForCaffe\\ForCaffe\\App_Data\\BancoForCaffe.mdf;Integrated Security=True";
+            string strcon = "Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=C:\\Users\\jaqueline.correia\\Downloads\\ForCaffe\\ForCaffe\\App_Data\\BancoForCaffe.mdf";
             SqlConnection conexao = new SqlConnection(strcon);
             string commandText = "Insert into [Cafe] (Tipo, Tamanho, Preco) VALUES " +
                 "('" + tmpTipo + "','" + tmpTamanho + "', " + tmpPreco + ")";
@@ -122,7 +154,8 @@ namespace ForCaffe.Controllers
              try
              {
                 // TODO: Add delete logic here
-                string strcon = "Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=C:\\Users\\Ssd\\source\\repos\\ForCaffe\\ForCaffe\\App_Data\\BancoForCaffe.mdf;Integrated Security=True";
+                //string strcon = "Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=C:\\Users\\Ssd\\source\\repos\\ForCaffe\\ForCaffe\\App_Data\\BancoForCaffe.mdf;Integrated Security=True";
+                string strcon = "Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=C:\\Users\\jaqueline.correia\\Downloads\\ForCaffe\\ForCaffe\\App_Data\\BancoForCaffe.mdf";
                 SqlConnection conexao = new SqlConnection(strcon);
                 string commandText = "Delete from [Cafe] WHERE Id=" + id + ";";
                 SqlCommand cmd = new SqlCommand(commandText, conexao);
